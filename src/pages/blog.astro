@@ -4,19 +4,23 @@
 // import '../styles/global.css'
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPost from '../components/BlogPost.astro';
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 const pageTitle = "My Astro Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <p>Welcome to my blog! Here, I will share my journey into the world of Astro.</p>
-  <p>Stay tuned for updates!</p>
   <h2>My Blog Posts</h2>
-  <h1>{pageTitle}</h1>
-  <p>A brief but extremely important account of my journey into Astro.</p>
   <ul>
-    <li><a href="/posts/post-1">Post 1</a></li>
+    <!-- Original hard-coded posts li's -->
+    <!-- <li><a href="/posts/post-1">Post 1</a></li>
     <li><a href="/posts/post-2">Post 2</a></li>
-    <li><a href="/posts/post-3">Post 3</a></li>
+    <li><a href="/posts/post-3">Post 3</a></li> -->
+    <!-- 2nd phase map generation of li's -->
+    <!-- {allPosts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)} -->
+    <!-- 3rd phase BlogPost component generation of li's -->
+    {allPosts.map((post: any) => <BlogPost title={post.frontmatter.title} url={post.url} />)}
   </ul>
 </BaseLayout>
 
